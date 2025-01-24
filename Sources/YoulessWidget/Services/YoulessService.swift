@@ -1,17 +1,23 @@
+import Foundation
+
 class YoulessService {
     let url = URL(string: "http://192.168.0.4/a?f=j")!
 
-    func fetchEnergyUsage(completion: @escaping (EnergyUsage?) -> Void) {
+    func fetchEnergyUsage(completion: @escaping (Result<EnergyUsage, Error>) -> Void) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                completion(nil)
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else {
+                completion(.failure(URLError(.badServerResponse)))
                 return
             }
             do {
                 let energyUsage = try JSONDecoder().decode(EnergyUsage.self, from: data)
-                completion(energyUsage)
+                completion(.success(energyUsage))
             } catch {
-                completion(nil)
+                completion(.failure(error))
             }
         }
         task.resume()

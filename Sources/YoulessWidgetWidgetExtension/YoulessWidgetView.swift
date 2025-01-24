@@ -1,10 +1,15 @@
 import SwiftUI
 import WidgetKit
+import YoulessWidget
 
-struct YoulessWidgetView: View {
-    var entry: YoulessWidgetEntry
+struct YoulessWidgetExtEntry: TimelineEntry {
+    let date: Date
+    let energyUsage: EnergyUsage
+}
 
-    @available(macOS 10.15, *)
+struct YoulessWidgetExtensionView: View {
+    var entry: YoulessWidgetExtEntry
+
     var body: some View {
         VStack {
             Text("Current Power Usage")
@@ -17,11 +22,51 @@ struct YoulessWidgetView: View {
     }
 }
 
-struct YoulessWidgetView_Previews: PreviewProvider {
-    @available(macOS 10.15, *)
+struct YoulessWidgetExtensionView_Previews: PreviewProvider {
     static var previews: some View {
-        let sampleEntry = YoulessWidgetEntry(date: Date(), energyUsage: EnergyUsage(cnt: "45468,786", pwr: 210, lvl: 0, dev: "", det: "", con: "OK", sts: "(47)", cs0: "0,000", ps0: 0, raw: 0))
-        YoulessWidgetView(entry: sampleEntry)
-            .previewContext(WidgetPreviewContext(family: .systemSmall))
+        let sampleEntry = YoulessWidgetExtEntry(
+            date: Date(),
+            energyUsage: EnergyUsage(cnt: "45468,786",
+                                     pwr: 210,
+                                     lvl: 0,
+                                     dev: "",
+                                     det: "",
+                                     con: "OK",
+                                     sts: "(47)",
+                                     cs0: "0,000",
+                                     ps0: 0,
+                                     raw: 0)
+        )
+        if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        };if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        };if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        };if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        };if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        };if #available(macOS 11.0, *) {
+            YoulessWidgetExtensionView(entry: sampleEntry)
+                .previewContext(WidgetPreviewContext(family: .systemSmall))
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }

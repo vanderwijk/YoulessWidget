@@ -5,7 +5,8 @@ import PackageDescription
 let package = Package(
     name: "YoulessWidget",
     platforms: [
-        .iOS(.v14)
+        .iOS(.v14),
+        .macOS(.v10_15)
     ],
     products: [
         .library(
@@ -25,6 +26,7 @@ let package = Package(
         ),
         .target(
             name: "YoulessWidgetWidgetExtension",
+            dependencies: ["YoulessWidget"], // Add dependency on YoulessWidget
             path: "Sources/YoulessWidgetWidgetExtension",
             swiftSettings: [
                 .define("PLATFORM_IOS", .when(platforms: [.iOS]))
