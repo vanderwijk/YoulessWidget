@@ -17,6 +17,7 @@ struct YoulessWidgetProvider: TimelineProvider {
         completion(entry)
     }
 
+    @available(macOS 11.0, *)
     func getTimeline(in context: Context, completion: @escaping (Timeline<YoulessWidgetEntry>) -> ()) {
         fetchEnergyUsage { energyUsage in
             let entry = YoulessWidgetEntry(date: Date(), energyUsage: energyUsage)
@@ -51,6 +52,7 @@ struct YoulessWidgetProvider: TimelineProvider {
 struct YoulessWidget: Widget {
     let kind: String = "YoulessWidget"
 
+    @available(macOS 11.0, *)
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: YoulessWidgetProvider()) { entry in
             YoulessWidgetView(entry: entry)
@@ -61,6 +63,7 @@ struct YoulessWidget: Widget {
 }
 
 struct YoulessWidget_Previews: PreviewProvider {
+    @available(macOS 10.15, *)
     static var previews: some View {
         YoulessWidgetView(entry: YoulessWidgetEntry(date: Date(), energyUsage: EnergyUsage(cnt: "0", pwr: 0, lvl: 0, dev: "", det: "", con: "OK", sts: "(0)", cs0: "0", ps0: 0, raw: 0)))
             .previewContext(WidgetPreviewContext(family: .systemSmall))

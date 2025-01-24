@@ -8,11 +8,11 @@ let package = Package(
         .iOS(.v14)
     ],
     products: [
-        .iOSApplication(
+        .library(
             name: "YoulessWidget",
             targets: ["YoulessWidget"]
         ),
-        .iOSApplication(
+        .library(
             name: "YoulessWidgetWidgetExtension",
             targets: ["YoulessWidgetWidgetExtension"]
         )
@@ -21,19 +21,24 @@ let package = Package(
     targets: [
         .target(
             name: "YoulessWidget",
-            dependencies: []
+            path: "Sources/YoulessWidget"
         ),
         .target(
             name: "YoulessWidgetWidgetExtension",
-            dependencies: []
+            path: "Sources/YoulessWidgetWidgetExtension",
+            swiftSettings: [
+                .define("PLATFORM_IOS", .when(platforms: [.iOS]))
+            ]
         ),
         .testTarget(
             name: "YoulessWidgetTests",
-            dependencies: ["YoulessWidget"]
+            dependencies: ["YoulessWidget"],
+            path: "Tests/YoulessWidgetTests"
         ),
         .testTarget(
             name: "YoulessWidgetWidgetExtensionTests",
-            dependencies: ["YoulessWidgetWidgetExtension"]
+            dependencies: ["YoulessWidgetWidgetExtension"],
+            path: "Tests/YoulessWidgetWidgetExtensionTests"
         )
     ]
 )
