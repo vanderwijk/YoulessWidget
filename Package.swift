@@ -1,4 +1,5 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.3
+
 import PackageDescription
 
 let package = Package(
@@ -7,17 +8,23 @@ let package = Package(
         .iOS(.v14)
     ],
     products: [
-        .app(name: "YoulessWidget", targets: ["YoulessWidget"]),
-        .library(name: "YoulessWidgetLibrary", targets: ["YoulessWidgetLibrary"]),
+        .iOSApplication(
+            name: "YoulessWidget",
+            targets: ["YoulessWidget"]
+        ),
+        .iOSApplication(
+            name: "YoulessWidgetWidgetExtension",
+            targets: ["YoulessWidgetWidgetExtension"]
+        )
     ],
     dependencies: [],
     targets: [
         .target(
             name: "YoulessWidget",
-            dependencies: ["YoulessWidgetLibrary"]
+            dependencies: []
         ),
         .target(
-            name: "YoulessWidgetLibrary",
+            name: "YoulessWidgetWidgetExtension",
             dependencies: []
         ),
         .testTarget(
@@ -25,8 +32,8 @@ let package = Package(
             dependencies: ["YoulessWidget"]
         ),
         .testTarget(
-            name: "YoulessWidgetUITests",
-            dependencies: ["YoulessWidget"]
-        ),
+            name: "YoulessWidgetWidgetExtensionTests",
+            dependencies: ["YoulessWidgetWidgetExtension"]
+        )
     ]
 )
