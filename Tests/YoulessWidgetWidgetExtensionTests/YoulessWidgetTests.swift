@@ -13,7 +13,7 @@ class YoulessWidgetTests: XCTestCase {
         let provider = YoulessWidgetProvider()
         let expectation = self.expectation(description: "Fetch energy usage data")
 
-        provider.getTimeline { result in
+        provider.getTimeline(in: <#Context#>) { result in
             switch result {
             case .success(let entries):
                 XCTAssertFalse(entries.isEmpty)

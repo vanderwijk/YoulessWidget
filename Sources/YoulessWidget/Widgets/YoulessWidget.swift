@@ -16,7 +16,6 @@ struct YoulessWidgetExtProvider: TimelineProvider {
         completion(entry)
     }
 
-    @available(macOS 11.0, *)
     func getTimeline(in context: Context, completion: @escaping (Timeline<YoulessWidgetExtEntry>) -> Void) {
         var entries: [YoulessWidgetExtEntry] = []
 
