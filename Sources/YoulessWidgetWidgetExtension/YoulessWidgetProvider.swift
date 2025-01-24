@@ -29,8 +29,15 @@ struct YoulessWidgetProvider: TimelineProvider {
         }
 
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data, 
-               let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+            if let error = error {
+                completion("Error")
+                return
+            }
+            guard let data = data else {
+                completion("Error")
+                return
+            }
+            if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
                let power = json["pwr"] as? Int {
                 completion("\(power) W")
             } else {

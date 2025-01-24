@@ -2,8 +2,6 @@ import WidgetKit
 import SwiftUI
 
 struct YoulessWidgetTimeline: TimelineProvider {
-    typealias Entry = <#type#>
-    
     typealias Entry = YoulessWidgetEntry
 
     func placeholder(in context: Context) -> YoulessWidgetEntry {
