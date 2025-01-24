@@ -1,0 +1,26 @@
+<plist version="1.0">
+<dict>
+    <key>CFBundleIdentifier</key>
+    <string>com.yourcompany.youlesswidget</string>
+    <key>CFBundleName</key>
+    <string>Youless Widget</string>
+    <key>CFBundleVersion</key>
+    <string>1.0</string>
+    <key>WidgetFamily</key>
+    <array>
+        <string>systemSmall</string>
+        <string>systemMedium</string>
+        <string>systemLarge</string>
+    </array>
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
+    <key>WidgetSupportedFamilies</key>
+    <array>
+        <string>systemSmall</string>
+        <string>systemMedium</string>
+        <string>systemLarge</string>
+    </array>
+</dict>
+</plist>
