@@ -2,23 +2,25 @@ import WidgetKit
 import SwiftUI
 import YoulessWidget
 
-struct YoulessWidgetEntry: TimelineEntry {
+@available(iOS 14.0, macOS 11.0, *)
+struct WidgetEntry: TimelineEntry {
     let date: Date
     let energyUsage: EnergyUsage?
     
-    static let placeholder = YoulessWidgetEntry(date: Date(), energyUsage: nil)
+    static let placeholder = WidgetEntry(date: Date(), energyUsage: nil)
 }
 
+@available(iOS 14.0, macOS 11.0, *)
 struct YoulessWidgetProvider: TimelineProvider {
     let service = YoulessService()
     
-    func placeholder(in context: Context) -> YoulessWidgetEntry {
-        YoulessWidgetEntry.placeholder
+    func placeholder(in context: Context) -> WidgetEntry {
+        WidgetEntry.placeholder
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (YoulessWidgetEntry) -> Void) {
+    func getSnapshot(in context: Context, completion: @escaping (WidgetEntry) -> Void) {
         if context.isPreview {
-            completion(YoulessWidgetEntry.placeholder)
+            completion(WidgetEntry.placeholder)
             return
         }
         
@@ -27,7 +29,7 @@ struct YoulessWidgetProvider: TimelineProvider {
         }
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<YoulessWidgetEntry>) -> Void) {
+    func getTimeline(in context: Context, completion: @escaping (Timeline<WidgetEntry>) -> Void) {
         fetchLatestUsage { entry in
             let timeline = Timeline(
                 entries: [entry],
@@ -37,22 +39,23 @@ struct YoulessWidgetProvider: TimelineProvider {
         }
     }
     
-    private func fetchLatestUsage(completion: @escaping (YoulessWidgetEntry) -> Void) {
+    private func fetchLatestUsage(completion: @escaping (WidgetEntry) -> Void) {
         service.fetchEnergyUsage { result in
-            let entry: YoulessWidgetEntry
+            let entry: WidgetEntry
             switch result {
             case .success(let usage):
-                entry = YoulessWidgetEntry(date: Date(), energyUsage: usage)
+                entry = WidgetEntry(date: Date(), energyUsage: usage)
             case .failure:
-                entry = YoulessWidgetEntry(date: Date(), energyUsage: nil)
+                entry = WidgetEntry(date: Date(), energyUsage: nil)
             }
             completion(entry)
         }
     }
 }
 
+@available(iOS 14.0, macOS 11.0, *)
 struct YoulessWidgetEntryView: View {
-    var entry: YoulessWidgetEntry
+    var entry: WidgetEntry
     @Environment(\.widgetFamily) var family
 
     var body: some View {
@@ -73,6 +76,7 @@ struct YoulessWidgetEntryView: View {
     }
 }
 
+@available(iOS 14.0, macOS 11.0, *)
 @main
 struct YoulessWidget: Widget {
     private let kind = "YoulessWidget"
@@ -88,6 +92,7 @@ struct YoulessWidget: Widget {
 }
 
 // MARK: - Preview
+@available(iOS 14.0, macOS 11.0, *)
 struct YoulessWidget_Previews: PreviewProvider {
     static var previews: some View {
         YoulessWidgetEntryView(entry: .placeholder)
