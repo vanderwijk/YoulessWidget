@@ -6,7 +6,7 @@ let package = Package(
     name: "YoulessWidget",
     platforms: [
         .iOS(.v14),
-        .macOS(.v10_15)
+        .macOS(.v11)
     ],
     products: [
         .library(
@@ -14,33 +14,27 @@ let package = Package(
             targets: ["YoulessWidget"]
         ),
         .library(
-            name: "YoulessWidgetWidgetExtension",
-            targets: ["YoulessWidgetWidgetExtension"]
+            name: "YoulessWidgetExtension",
+            targets: ["YoulessWidgetExtension"]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(name: "WidgetKit", type: .framework)
+    ],
     targets: [
         .target(
             name: "YoulessWidget",
+            dependencies: ["WidgetKit"],
             path: "Sources/YoulessWidget"
         ),
         .target(
-            name: "YoulessWidgetWidgetExtension",
-            dependencies: ["YoulessWidget"], // Add dependency on YoulessWidget
-            path: "Sources/YoulessWidgetWidgetExtension",
-            swiftSettings: [
-                .define("PLATFORM_IOS", .when(platforms: [.iOS]))
-            ]
+            name: "YoulessWidgetExtension",
+            dependencies: ["YoulessWidget", "WidgetKit"],
+            path: "Sources/YoulessWidgetExtension"
         ),
         .testTarget(
             name: "YoulessWidgetTests",
-            dependencies: ["YoulessWidget"],
-            path: "Tests/YoulessWidgetTests"
-        ),
-        .testTarget(
-            name: "YoulessWidgetWidgetExtensionTests",
-            dependencies: ["YoulessWidgetWidgetExtension"],
-            path: "Tests/YoulessWidgetWidgetExtensionTests"
+            dependencies: ["YoulessWidget"]
         )
     ]
 )
